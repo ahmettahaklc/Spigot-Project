@@ -14,7 +14,7 @@ public class StorageManager {
     }
 
     public void createStorageTable() throws SQLException {
-        // player_storage tablosunu oluşturun
+
         try (PreparedStatement statement = connection.prepareStatement(
                 "CREATE TABLE IF NOT EXISTS player_storage (" +
                         "uuid VARCHAR(36) PRIMARY KEY, " +
@@ -26,7 +26,7 @@ public class StorageManager {
         }
     }
 
-    // Depo içeriğini veritabanına kaydeder (INSERT OR UPDATE)
+
     public void saveInventory(String uuid, String base64Data) {
         // Prepared Statements kullandık (SQL Injection'a karşı güvenlik)
         String sql = "INSERT INTO player_storage (uuid, inventory_data) VALUES (?, ?) " +
@@ -41,7 +41,7 @@ public class StorageManager {
         }
     }
 
-    // Depo içeriğini veritabanından çeker
+
     public String loadInventory(String uuid) {
         String sql = "SELECT inventory_data FROM player_storage WHERE uuid = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

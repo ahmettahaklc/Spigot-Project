@@ -19,13 +19,8 @@ public class StorageListener implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         Inventory closedInventory = event.getInventory();
-
-
         if (closedInventory.getHolder() != null && closedInventory.getHolder() instanceof Player) {
-
-            if (event.getView().getTitle().equals(ChatColor.GOLD + "Kişisel Depo")) {
-
-                // 2. Oyuncuyu al
+            if (event.getView().getTitle().equals(ChatColor.GOLD + "Custom GUI")) {
                 Player player = (Player) event.getPlayer();
 
                 // 3. Envanteri Base64'e serileştir ve ASENKRON olarak kaydet

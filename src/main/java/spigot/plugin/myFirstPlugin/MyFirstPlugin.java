@@ -1,22 +1,18 @@
 package spigot.plugin.myFirstPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.entity.minecart.StorageMinecart;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.*;
-import java.util.List;
 import java.util.logging.Level;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
 
 public final class MyFirstPlugin extends JavaPlugin implements CommandExecutor {
     private Connection connection;
@@ -25,11 +21,10 @@ public final class MyFirstPlugin extends JavaPlugin implements CommandExecutor {
 
     @Override
     public void onEnable() {
-        instance = this;
+        instance = this; //Singleton Kemal anlatmıştı
         String url = "jdbc:mysql://localhost/my_plugin";
         String user = "root";
         String password = "";
-
 
         try {
             this.connection = DriverManager.getConnection(url, user, password);
@@ -62,8 +57,7 @@ public final class MyFirstPlugin extends JavaPlugin implements CommandExecutor {
         }
 **/
         this.getCommand("depo").setExecutor(this);
-
-        getLogger().info("Depo komutu başarıyla kaydedildi!");
+        getLogger().info("Depo command has been enabled!");
 
     }
 
@@ -76,15 +70,11 @@ public final class MyFirstPlugin extends JavaPlugin implements CommandExecutor {
                 return true;
             }
 
-            // 1. Envanterin başlığı (Listener'da kontrol edilen ad)
-            String inventoryTitle = ChatColor.GOLD + "Kişisel Depo";
+            String inventoryTitle = ChatColor.GOLD + "Custom GUI";
+            Inventory storage = Bukkit.createInventory(player,InventoryType.CHEST, inventoryTitle); // 54 yuva önerilir.
+            player.sendMessage(ChatColor.YELLOW + "Loading depo...");
 
-            // 2. Boş envanteri oluşturun (null yerine oyuncu sahibi yapın)
-            Inventory storage = Bukkit.createInventory(player, 54, inventoryTitle); // 54 yuva önerilir.
 
-            player.sendMessage(ChatColor.YELLOW + "Depo yükleniyor...");
-
-            // 3. Eşyaları ASENKRON olarak yükleyin
             getServer().getScheduler().runTaskAsynchronously(this, () -> {
                 // StorageManager'dan Base64 veriyi çek
                 String base64Data = storageManager.loadInventory(player.getUniqueId().toString());
@@ -108,7 +98,6 @@ public final class MyFirstPlugin extends JavaPlugin implements CommandExecutor {
                     player.openInventory(storage);
                 });
             });
-
             return true;
         }
         return false;
@@ -137,7 +126,6 @@ public final class MyFirstPlugin extends JavaPlugin implements CommandExecutor {
       }
 
     **/
-
     @Override
     public void onDisable() {
         getLogger().info("Plugin has been disabled!");
