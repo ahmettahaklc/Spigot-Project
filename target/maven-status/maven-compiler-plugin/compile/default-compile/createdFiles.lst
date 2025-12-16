@@ -1,0 +1,5 @@
+spigot\plugin\mcPlugin\ItemSerializer.class
+spigot\plugin\mcPlugin\StorageManager.class
+spigot\plugin\mcPlugin\PlayerStorageService.class
+spigot\plugin\mcPlugin\StorageListener.class
+spigot\plugin\mcPlugin\McPlugin.class

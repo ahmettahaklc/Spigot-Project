@@ -1,9 +1,0 @@
-name: MyFirstPlugin
-version: '1.0-SNAPSHOT'
-main: spigot.plugin.myFirstPlugin.MyFirstPlugin
-api-version: '1.21'
-
-commands:
-  depo:
-    description: Oyuncunun kişisel deposunu açar.
-    usage: /depo
